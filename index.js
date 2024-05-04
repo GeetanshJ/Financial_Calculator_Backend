@@ -1,34 +1,18 @@
-const bodyParser = require("body-parser");
-const express = require("express");
-const connection = require("./utils/database");
-const cors = require("cors");
+const express= require("express");
 const app = express();
-const AuthRoutes = require("./routes/AuthRoutes");
-const LoanRoutes = require("./routes/LoanRoutes");
-const DebtRatioRoutes = require("./routes/DebtRatioRoutes");
-const Home = require("./routes/Home");
+const bodyParser = require("body-parser")
+const cors = require("cors");
+const LocationRoute = require("../backend_zwigato/Routes/Location");
+const HotelRoute = require("../backend_zwigato/Routes/HoteList");
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("connected to database");
-});
-app.use(cors({ origin: "http://localhost:3000" }));
-app.use(bodyParser.urlencoded({ extended: true }));
-// app.set("view engine", "ejs");
-app.set("view engine", "ejs");
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:true}));
 
-app.use(express.json());
+app.get("/" , (req,res) => {
+    res.send("hello");
+})
 
-//routes
-app.use("/auth", AuthRoutes);
-app.use("/loan", LoanRoutes);
-app.use("/debt", DebtRatioRoutes);
-app.use("/",Home);
+app.get("/location",LocationRoute);
+app.get("/hotel",HotelRoute);
 
-// app.use("*", (req, res) => {
-//   res.render("404");
-// });
-
-app.listen(8000, () => {
-  console.log("app running on port 8000");
-});
+app.listen(8000);
