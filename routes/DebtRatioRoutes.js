@@ -37,7 +37,6 @@ router.get("/:uid", (req, res) => {
         res.status(500).json({ message: "Failed to fetch lodebttoincomeans" });
       } else {
 
-        console.log(results)
         res.status(200).json({ ratio: results });
       }
     });

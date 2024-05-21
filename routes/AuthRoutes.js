@@ -4,13 +4,13 @@ const bcrypt = require("bcrypt");
 const connection = require("../utils/database");
 
 router.post("/register", async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;  // Updated to use 'email' instead of 'username'
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const insertQuery = `INSERT INTO users (username, password) VALUES (?, ?)`;
-        connection.query(insertQuery, [username, hashedPassword], (err, results) => {
+        const insertQuery = `INSERT INTO users (email, password) VALUES (?, ?)`;
+        connection.query(insertQuery, [email, hashedPassword], (err, results) => {
             if (err) {
                 console.error("Error registering user:", err);
                 return res.status(500).json({ message: "Registration failed" });
