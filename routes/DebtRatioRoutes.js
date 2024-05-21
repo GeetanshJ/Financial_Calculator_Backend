@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../utils/database");
 
-// Route for adding a loan
 router.post("/add", (req, res) => {
   const { uid, debt, income, ratio } = req.body;
 
@@ -26,7 +25,6 @@ router.post("/add", (req, res) => {
   }
 });
 
-// Route for getting loans for a specific user ID
 router.get("/:uid", (req, res) => {
   const uid = req.params.uid;
   console.log(uid + "uid from backend")

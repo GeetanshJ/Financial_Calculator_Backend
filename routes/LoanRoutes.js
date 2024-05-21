@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../utils/database");
 
-// Route for adding a loan
 router.post("/add", (req, res) => {
   const { uid, principle, interest, tenure ,emi} = req.body;
 
