@@ -1,18 +1,21 @@
-const express= require("express");
+const express = require("express");
 const app = express();
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 const cors = require("cors");
-const LocationRoute = require("../backend_zwigato/Routes/Location");
-const HotelRoute = require("../backend_zwigato/Routes/HoteList");
+
+const debtRouter = require("./routes/DebtRatioRoutes");
+const loanRouter = require("./routes/LoanRoutes");
+const authRouter = require("./routes/AuthRoutes");
+const sip = require("./routes/Sip");
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
-app.get("/" , (req,res) => {
-    res.send("hello");
-})
-
-app.get("/location",LocationRoute);
-app.get("/hotel",HotelRoute);
-
-app.listen(8000);
+app.use("/debt", debtRouter);
+app.use("/loan", loanRouter);
+app.use("/auth", authRouter);
+app.use("/sip", sip);
+const PORT =  8000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
